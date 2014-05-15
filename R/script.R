@@ -13,6 +13,8 @@ head(data)
 names(data) <- c("pressure", "temp", "teg")
 str(data)
 
+summary(data)
+
 ggplot(data, aes(pressure, teg)) + geom_point() + geom_smooth()
 ggplot(data, aes(temp, teg)) + geom_point() + geom_smooth()
 ggplot(data, aes(temp, pressure)) + geom_point() + geom_density2d() 
