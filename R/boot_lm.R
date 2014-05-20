@@ -14,7 +14,10 @@ fun <- function(data, indices) {
 	n <-0
 	while(!n) {
 		pick <- which(runif(N) > .5)
-		n <- sum(pick)
+		# test data must have at least df
+		# this is n + df
+		n <- length(pick)
+		n <- (n >= 3) & (n < N)
 	}
 	# Test data
 	testdata   <- data[pick,]
