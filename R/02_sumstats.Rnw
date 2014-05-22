@@ -1,0 +1,46 @@
+\documentclass{article}
+
+\begin{document}
+
+<<setup, include=FALSE, cache=TRUE>>=
+library(xtable)
+options(xtable.comment = FALSE)
+sf <- function(x) x
+dataset <- read.delim("../data/TEGDataAlirezabahadori.csv", sep=",")
+colnames(dataset) <- c("pressure","temp","teg")
+
+# Removing outlier
+dataset <- subset(dataset, teg != min(teg))
+
+# Normalizing function
+nf <- function(x) {
+  x <- x - min(x)
+	x <- log(x/(max(x)-min(x)) + 1)
+	return(.7*x/log(2) + .15)
+}
+#for (i in 1:ncol(dataset)) {
+#	dataset[,i] <- nf(dataset[,i])
+#}
+
+# Printing summary statistics
+colnames(dataset) <- c("Preassure, kPa","Temperature $^\\circ{}C$","TEG purity, wt\\%")
+@
+
+Replicating the authors original statistics, we get the following results showed
+in the table \ref{tab:sumstats}
+
+<<sumstatstab, echo=FALSE, results='asis'>>=
+dataset_sum <- lapply(dataset, function(x) cbind(min(x),max(x),mean(x)))
+dataset_sum <- do.call(rbind, dataset_sum)
+colnames(dataset_sum) <- c("Minimum", "Maximum", "Mean")
+rownames(dataset_sum) <- colnames(dataset)
+dataset_sum <- dataset_sum[c(3,1,2),]
+print(
+  xtable::xtable(dataset_sum,label="tab:sumstats", 
+	caption= "Operating ranges of collected database for TEG purity"),
+	sanitize.colnames.function=sf,
+	sanitize.rownames.function=sf)
+@
+
+
+\end{document}
