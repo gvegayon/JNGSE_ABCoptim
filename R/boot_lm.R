@@ -51,6 +51,9 @@ bs <- boot(dataset_norm, fun, R=1000)
 out <- as.data.frame(bs$t[,1:2])
 
 colnames(out) <- c("Linear Model", "ANN 2-11-1")
+
+pdf("../paper/figures/average_predict_err.pdf")
 boxplot(out, main="Average Prediction Error")
+dev.off()
 
 
