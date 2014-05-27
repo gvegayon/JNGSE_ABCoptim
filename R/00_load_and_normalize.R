@@ -7,4 +7,6 @@ nf <- function(x) {
 	return(.7*x/log(2) + .15)
 }
 
-dataset_norm <- as.data.frame(lapply(dataset, nf))
+# Normalizing only covariates
+dataset_norm <- dataset
+dataset_norm[,1:2] <- as.data.frame(lapply(dataset[,1:2], nf))
