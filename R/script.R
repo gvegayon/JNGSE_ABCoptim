@@ -114,4 +114,4 @@ p <- ggplot(results2) + geom_line(aes(niter, value, group=variable, color=variab
   )
 
 p
-
+ggsave(filename="models.boot.1000.pdf", plot=p, width=16, height=9)
