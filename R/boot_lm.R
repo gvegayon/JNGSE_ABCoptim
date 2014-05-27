@@ -6,7 +6,7 @@ library(nnet)
 # monmlp.fit(as.matrix(dataset_norm[,c("pressure","temp")]),as.matrix(dataset_norm$teg),hidden1=11)
 
 # Loading data
-source("00_load_and_normalize.R")
+source("../R/00_load_and_normalize.R")
 
 fun <- function(data, indices, ...) {
 	# Subsample
